@@ -25,10 +25,10 @@ public class BedListener implements Listener {
 
         ComponentBuilder componentBuilder = new ComponentBuilder();
         componentBuilder.append(player.getDisplayName());
-        componentBuilder.color(ChatColor.GOLD);
+        componentBuilder.color(ChatColor.DARK_PURPLE);
         componentBuilder.append(" tries to sleep. ");
 
-        TextComponent clickableMessage = new TextComponent("Click here to screw it up.");
+        TextComponent clickableMessage = new TextComponent("Click here to stop it.");
         clickableMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/residentsleeper"));
         clickableMessage.setUnderlined(true);
 

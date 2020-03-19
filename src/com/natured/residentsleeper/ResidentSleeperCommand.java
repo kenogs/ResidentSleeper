@@ -22,13 +22,13 @@ public class ResidentSleeperCommand implements CommandExecutor {
 
         if (sender == null) {
 
-            Bukkit.getLogger().info("&cError: The command /residentsleeper was executed by a non-player.");
+            error("The command /residentsleeper cannot be executed by a non-player.");
             return true;
         }
 
         if (!sender.hasPermission("residentsleeper.use")) {
 
-            sender.sendMessage(ChatColor.GOLD + "[ResidentSleeper]" + ChatColor.DARK_RED + " You don't have enough permission.");
+            sendErrorMessage(sender, "You don't have enough permission.");
             return true;
         }
 
@@ -52,12 +52,22 @@ public class ResidentSleeperCommand implements CommandExecutor {
 
         ComponentBuilder componentBuilder = new ComponentBuilder();
         componentBuilder.append(sender.getDisplayName());
-        componentBuilder.color(net.md_5.bungee.api.ChatColor.GOLD);
-        componentBuilder.append(" does not want to let ");
+        componentBuilder.color(net.md_5.bungee.api.ChatColor.DARK_PURPLE);
+        componentBuilder.append(" doesn't want ");
         componentBuilder.append(target.getDisplayName());
-        componentBuilder.color(net.md_5.bungee.api.ChatColor.GOLD);
-        componentBuilder.append(" rest.");
+        componentBuilder.color(net.md_5.bungee.api.ChatColor.DARK_PURPLE);
+        componentBuilder.append(" to rest.");
 
         Bukkit.getServer().spigot().broadcast(componentBuilder.create());
+    }
+
+    private void sendErrorMessage(Player player, String message) {
+
+        player.sendMessage(ChatColor.DARK_RED + message);
+    }
+
+    private void error(String message) {
+
+        Bukkit.getLogger().severe("[ResidentSleeper] " + message);
     }
 }
