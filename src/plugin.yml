@@ -1,0 +1,21 @@
+name: ResidentSleeper
+version: 1.0.0
+author: Natured
+description: ResidentSleeper
+main: com.natured.residentsleeper.ResidentSleeper
+commands:
+  residentsleeper:
+    description: Signals the active sleeper to get up again.
+    usage: The developer did something wrong.
+permissions:
+  residentsleeper.*:
+    description: Gives access to all ResidentSleeper commands.
+    children:
+      residentsleeper.use: true
+      residentsleeper.admin: true
+  residentsleeper.use:
+    default: true
+    description: Allows you to use /residentsleeper.
+  residentsleeper.admin:
+    default: op
+    description: Allows you to use additional commands.
