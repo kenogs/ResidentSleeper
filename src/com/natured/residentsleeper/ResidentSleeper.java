@@ -7,7 +7,12 @@ public class ResidentSleeper extends JavaPlugin {
     @Override
     public void onEnable(){
 
-        getServer().getPluginManager().registerEvents(new BedListener(), this);
-        getCommand("residentsleeper").setExecutor(new ResidentSleeperCommand());
+        PluginContext pluginContext = new PluginContext(this);
+
+        BedListener bedListener = new BedListener(pluginContext);
+        ResidentSleeperCommand residentSleeperCommand = new ResidentSleeperCommand(pluginContext);
+
+        getServer().getPluginManager().registerEvents(bedListener, this);
+        getCommand("residentsleeper").setExecutor(residentSleeperCommand);
     }
 }

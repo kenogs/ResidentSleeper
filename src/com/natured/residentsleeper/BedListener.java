@@ -12,6 +12,13 @@ import org.bukkit.event.player.PlayerBedEnterEvent;
 
 public class BedListener implements Listener {
 
+    private PluginContext pluginContext;
+
+    public BedListener(PluginContext pluginContext) {
+
+        this.pluginContext = pluginContext;
+    }
+
     @EventHandler
     public void onPlayerBedEnter(PlayerBedEnterEvent event) {
 
@@ -19,6 +26,15 @@ public class BedListener implements Listener {
         if (bedEnterResult != PlayerBedEnterEvent.BedEnterResult.OK) return;
 
         sendCancelMessage(event.getPlayer());
+
+        if (pluginContext.getWorld().getPlayers().size() > 1) {
+
+            pluginContext.queueTask(() -> {
+
+                // message "Good morning everyone."
+                pluginContext.getWorld().setTime(0);
+            }, 100);
+        }
     }
 
     private void sendCancelMessage(Player player) {
@@ -34,6 +50,7 @@ public class BedListener implements Listener {
 
         componentBuilder.append(clickableMessage);
 
+        // broadcast to all worlds...
         Bukkit.getServer().spigot().broadcast(componentBuilder.create());
     }
 }

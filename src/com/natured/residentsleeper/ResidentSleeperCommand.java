@@ -13,6 +13,13 @@ import java.util.Iterator;
 
 public class ResidentSleeperCommand implements CommandExecutor {
 
+    private PluginContext pluginContext;
+
+    public ResidentSleeperCommand(PluginContext pluginContext) {
+
+        this.pluginContext = pluginContext;
+    }
+
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
 
@@ -32,16 +39,16 @@ public class ResidentSleeperCommand implements CommandExecutor {
             return true;
         }
 
-        Collection<Player> players = (Collection<Player>) Bukkit.getServer().getOnlinePlayers();
+        Collection<Player> players = pluginContext.getWorld().getPlayers();
         for (Iterator<Player> playerIterator = players.iterator(); playerIterator.hasNext();) {
 
             Player player = playerIterator.next();
 
             if (player.isSleeping()) {
 
-                player.wakeup( false);
-                sendCanceledMessage(sender, player);
-                break;
+                player.wakeup(false);
+                if (pluginContext.cancelTask())
+                    sendCanceledMessage(sender, player);
             }
         }
 
